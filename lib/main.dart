@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'homescreen.dart';
+import 'package:project/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      initialRoute: AppRoutes.home,
+      onGenerateRoute: AppRoutes.generateRoute,
+      // home: HomeScreen(),
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -38,7 +39,11 @@ class MyApp extends StatelessWidget {
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0xFF24294b),
+          titleTextStyle: TextStyle(
+              //
+              ),
           elevation: 5,
+          centerTitle: true,
         ),
         textTheme: TextTheme(
           bodySmall: TextStyle(
