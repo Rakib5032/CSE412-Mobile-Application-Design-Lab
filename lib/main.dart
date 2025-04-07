@@ -15,41 +15,43 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
       theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white70,
-              backgroundColor: Colors.purple,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              elevation: 5,
-              textStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white70,
+            backgroundColor: Colors.purple,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              textStyle: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: Color(0xFF00796B),
             elevation: 5,
+            textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          textTheme: TextTheme(
-              bodySmall: TextStyle(
-                fontSize: 10,
-              ),
-              bodyMedium: TextStyle(
-                fontSize: 18,
-              ),
-              bodyLarge: TextStyle(
-                fontSize: 22,
-              ))),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            textStyle: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF24294b),
+          elevation: 5,
+        ),
+        textTheme: TextTheme(
+          bodySmall: TextStyle(
+            fontSize: 10,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 18,
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 22,
+          ),
+        ),
+      ),
     );
   }
 }
