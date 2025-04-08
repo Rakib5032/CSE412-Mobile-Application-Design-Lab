@@ -69,7 +69,7 @@ class EventCard extends StatelessWidget {
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(12)),
               child: AspectRatio(
-                aspectRatio: 16 / 14,
+                aspectRatio: 16 / 9,
                 child: Image.asset(
                   imageUrl,
                   fit: BoxFit.cover,

@@ -61,14 +61,11 @@ class _HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
         title: const Text(
           "EventMate",
           style: TextStyle(
               color: Colors.white70,
-              fontSize: 32,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               fontFamily: 'Raleway'),
         ),
@@ -109,7 +106,7 @@ class _HomescreenState extends State<Homescreen> {
             ),
             ListTile(
               leading: Icon(
-                Icons.home,
+                Icons.home_outlined,
                 color: Color(0xFFD4AF37),
               ),
               title: Text(
@@ -119,11 +116,14 @@ class _HomescreenState extends State<Homescreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AppRoutes.home);
+              },
             ),
             ListTile(
               leading: Icon(
-                Icons.event_note,
+                Icons.event_note_outlined,
                 color: Color(0xFFD4AF37),
               ),
               title: Text(
@@ -133,11 +133,14 @@ class _HomescreenState extends State<Homescreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AppRoutes.events);
+              },
             ),
             ListTile(
               leading: Icon(
-                Icons.book_online,
+                Icons.book_online_outlined,
                 color: Color(0xFFD4AF37),
               ),
               title: Text(
@@ -147,11 +150,14 @@ class _HomescreenState extends State<Homescreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AppRoutes.booknow);
+              },
             ),
             ListTile(
               leading: Icon(
-                Icons.settings,
+                Icons.settings_outlined,
                 color: Color(0xFFD4AF37),
               ),
               title: Text(
@@ -161,11 +167,14 @@ class _HomescreenState extends State<Homescreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AppRoutes.settings);
+              },
             ),
             ListTile(
               leading: Icon(
-                Icons.feedback,
+                Icons.feedback_outlined,
                 color: Color(0xFFD4AF37),
               ),
               title: Text(
@@ -182,17 +191,20 @@ class _HomescreenState extends State<Homescreen> {
             ),
             ListTile(
               leading: Icon(
-                Icons.abc_sharp,
+                Icons.contact_support_outlined,
                 color: Color(0xFFD4AF37),
               ),
               title: Text(
-                "ABOUT",
+                "CONTACTS",
                 style: TextStyle(
                     color: Color(0xFFD4AF37),
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AppRoutes.contact);
+              },
             ),
             ListTile(
               leading: Icon(
@@ -206,7 +218,9 @@ class _HomescreenState extends State<Homescreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
@@ -219,10 +233,10 @@ class _HomescreenState extends State<Homescreen> {
             Column(
               children: [
                 Text(
-                  "Create Your Moment With Us",
+                  "Your Next Big Memory, Starts Here",
                   style: TextStyle(
                     fontFamily: 'Gill Sans',
-                    fontSize: 32,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
                     color: Color(0xFFD4AF37),
@@ -313,25 +327,25 @@ class _HomescreenState extends State<Homescreen> {
                   title: 'Music Festival',
                   date: 'June 15, 2025',
                   imageUrl: 'assets/event1.png',
-                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
                 ),
                 EventCard(
                   title: 'Food Festival',
                   date: 'April 22, 2025',
                   imageUrl: 'assets/event2.jpg',
-                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
                 ),
                 EventCard(
                   title: 'Business Meetup',
                   date: 'May 22, 2025',
                   imageUrl: 'assets/event3.jpg',
-                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
                 ),
                 EventCard(
                   title: 'Corporate Event',
                   date: 'May 28, 2025',
                   imageUrl: 'assets/event4.jpg',
-                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
                 ),
               ],
             ),

@@ -61,6 +61,10 @@ flutter:
     - assets/event2.jpg
     - assets/event3.jpg
     - assets/event4.jpg
+    - assets/event10.jpg
+    - assets/event11.jpg
+    - assets/event12.jpg
+    - assets/event13.jpg
 
 
   # The following line ensures that the Material Icons font is
