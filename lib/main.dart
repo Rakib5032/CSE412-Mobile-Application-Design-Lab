@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white70,
-            backgroundColor: Colors.purple,
+            backgroundColor: const Color(0xFFD4AF37),
+            foregroundColor: const Color(0xFF24294b),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(8),
             ),
             elevation: 5,
             textStyle: TextStyle(

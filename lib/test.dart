@@ -1,259 +1,291 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:project/routes.dart';
 
-void main() {
-  runApp(const EmergencyContactApp());
-}
-
-class EmergencyContactApp extends StatelessWidget {
-  const EmergencyContactApp({super.key});
+class Homescreen extends StatefulWidget {
+  const Homescreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Emergency Contacts',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const EmergencyContactPage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  State<Homescreen> createState() => _HomescreenState();
 }
 
-class EmergencyContactPage extends StatelessWidget {
-  const EmergencyContactPage({super.key});
+class _HomescreenState extends State<Homescreen> {
+  final List<String> images = [
+    'assets/image1.jpg', // Replace with actual image paths
+    'assets/image2.jpg',
+    'assets/image3.jpg',
+    'assets/image4.jpg',
+    'assets/image5.jpeg',
+  ];
+
+  final PageController controller = PageController();
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF24294b),
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFD4AF37)),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        iconTheme: IconThemeData(
+          color: Colors.white,
         ),
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        //backgroundColor: Color(0xFF24294b),
+        title: Text(
+          "EventMate",
+          style: TextStyle(
+              color: Colors.white70,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Raleway'),
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Color(0xFF24294b),
+        child: ListView(
           children: [
-            Icon(Icons.call, color: Color(0xFFD4AF37)),
-            SizedBox(width: 10),
-            Text(
-              'Emergency Contact',
-              style: TextStyle(
+            DrawerHeader(
+              decoration: BoxDecoration(
                 color: Color(0xFFD4AF37),
-                fontWeight: FontWeight.bold,
               ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF24294b),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.person,
+                      color: Color(0xFFD4AF37),
+                      size: 40,
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Text(
+                    "Profile",
+                    style: TextStyle(
+                      color: Color(0xFF24294b),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.home,
+                color: Color(0xFFD4AF37),
+              ),
+              title: Text(
+                "HOME",
+                style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.event_note,
+                color: Color(0xFFD4AF37),
+              ),
+              title: Text(
+                "EVENTS",
+                style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.book_online,
+                color: Color(0xFFD4AF37),
+              ),
+              title: Text(
+                "BOOK NOW",
+                style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.settings,
+                color: Color(0xFFD4AF37),
+              ),
+              title: Text(
+                "SETTINGS",
+                style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.feedback,
+                color: Color(0xFFD4AF37),
+              ),
+              title: Text(
+                "FEEDBACK",
+                style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AppRoutes.feedback);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.abc_sharp,
+                color: Color(0xFFD4AF37),
+              ),
+              title: Text(
+                "ABOUT",
+                style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                color: Color(0xFFD4AF37),
+              ),
+              title: Text(
+                "LOG OUT",
+                style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {},
             ),
           ],
         ),
-        backgroundColor: const Color(0xFF24294b),
-        elevation: 0,
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1.0),
-          child: Container(
-            color: const Color(0xFFD4AF37),
-            height: 1.0,
-          ),
-        ),
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              _buildDesktopContactCard(
-                name: 'Bishal Biswas',
-                position: 'Project Manager',
-                phone: '+8801761896783',
-                email: 'biswas15-5394@diu.edu.bd',
-                studentId: '221-15-5394',
-                imageUrl:
-                    'https://drive.google.com/uc?export=view&id=1zxuqQGwIcITBaIGpAdHNJSz95ZP_V4NL',
-                context: context,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 16,
+            ),
+            // Image Carousel
+            SizedBox(
+              height: 196,
+              width: double.infinity,
+              child: PageView.builder(
+                controller: controller,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index % images.length;
+                  });
+                },
+                //itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SizedBox(
+                      height: 300,
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          images[index % images.length],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    // child: ClipRRect(
+                    //   borderRadius: BorderRadius.circular(12),
+                    //   child: Image.asset(
+                    //     images[index],
+                    //     fit: BoxFit.cover,
+                    //     width: double.infinity,
+                    //   ),
+                    // ),
+                  );
+                },
               ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Rakibul Haque Rabbi',
-                position: 'Head Developer',
-                phone: '+8801521797236',
-                email: 'rabbi15-5032@diu.edu.bd',
-                studentId: '221-15-5032',
-                imageUrl:
-                    'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_2',
-                context: context,
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var i = 0; i < images.length; i++)
+                  buildIndicator(currentIndex == i)
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.all(0),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      controller.jumpToPage(currentIndex - 1);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      controller.jumpToPage(currentIndex + 1);
+                    },
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Md. Shadman Shani Pavel',
-                position: 'Structure Designer',
-                phone: '+8801533120838',
-                email: 'shani15-4836@diu.edu.bd',
-                studentId: '221-15-4836',
-                imageUrl:
-                    'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_3',
-                context: context,
-              ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Shahid Kaisar Apon',
-                position: 'Junior UI Designer',
-                phone: '+8801708957793',
-                email: 'apon15-5358@diu.edu.bd',
-                studentId: '221-15-5358',
-                imageUrl:
-                    'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_4',
-                context: context,
-              ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Seyam Sarker',
-                position: 'Q/A & Tester',
-                phone: '+8801643788962',
-                email: 'sarkar15-5795@diu.edu.bd',
-                studentId: '221-15-5795',
-                imageUrl: 'assets/images/image1.jpg',
-                context: context,
-              ),
-            ],
-          ),
+            )
+            // Page Indicator
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: List.generate(
+            //     images.length,
+            //       (index) =>
+            //     // (index) => Container(
+            //     //   margin: const EdgeInsets.symmetric(horizontal: 4),
+            //     //   width: currentIndex == index ? 12 : 8,
+            //     //   height: currentIndex == index ? 12 : 8,
+            //     //   decoration: BoxDecoration(
+            //     //     color: currentIndex == index ? Colors.amber : Colors.grey,
+            //     //     shape: BoxShape.circle,
+            //     //   ),
+            //     // ),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildDesktopContactCard({
-    required String name,
-    required String position,
-    required String phone,
-    required String email,
-    required String studentId,
-    required String imageUrl,
-    required BuildContext context,
-  }) {
-    return Card(
-      color: const Color(0xFF3a3f68),
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                imageUrl,
-                width: 120,
-                height: 120,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: 120,
-                    height: 120,
-                    color: Colors.grey,
-                    child:
-                        const Icon(Icons.person, size: 60, color: Colors.white),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color(0xFFD4AF37),
-                    ),
-                  ),
-                  Text(
-                    position,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'ID: $studentId',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.white60,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  GestureDetector(
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(text: phone));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Copied phone number: $phone'),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.phone,
-                            size: 18, color: Colors.white70),
-                        const SizedBox(width: 10),
-                        Text(
-                          phone,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white70,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        const Icon(Icons.content_copy,
-                            size: 16, color: Colors.white54),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(text: email));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Copied email: $email'),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.email,
-                            size: 18, color: Colors.white70),
-                        const SizedBox(width: 10),
-                        Text(
-                          email,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white70,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        const Icon(Icons.content_copy,
-                            size: 16, color: Colors.white54),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+  Widget buildIndicator(bool isSelected) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 1),
+      child: Container(
+        height: isSelected ? 12 : 10,
+        width: isSelected ? 12 : 10,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isSelected ? Colors.black : Colors.grey,
         ),
       ),
     );

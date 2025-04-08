@@ -1,5 +1,9 @@
+import 'dart:async'; // Add this import for Timer
+
 import 'package:flutter/material.dart';
 import 'package:project/routes.dart';
+
+import 'Components/eventcard.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -10,7 +14,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   final List<String> images = [
-    'assets/image1.jpg', // Replace with actual image paths
+    'assets/image1.jpg',
     'assets/image2.jpg',
     'assets/image3.jpg',
     'assets/image4.jpg',
@@ -19,16 +23,48 @@ class _HomescreenState extends State<Homescreen> {
 
   final PageController controller = PageController();
   int currentIndex = 0;
+  late Timer _timer; // Timer for auto-scrolling
+
+  @override
+  void initState() {
+    super.initState();
+    // Start auto-scrolling when widget initializes
+    _startAutoScroll();
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when widget is disposed
+    _timer.cancel();
+    controller.dispose();
+    super.dispose();
+  }
+
+  void _startAutoScroll() {
+    // Auto-scroll every 3 seconds
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (controller.hasClients) {
+        final nextPage = currentIndex + 1;
+        if (nextPage >= images.length) {
+          controller.jumpToPage(0); // Loop back to first image
+        } else {
+          controller.nextPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        //backgroundColor: Color(0xFF24294b),
-        title: Text(
+        title: const Text(
           "EventMate",
           style: TextStyle(
               color: Colors.white70,
@@ -38,29 +74,29 @@ class _HomescreenState extends State<Homescreen> {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: Color(0xFF24294b),
+        backgroundColor: const Color(0xFF24294b),
         child: ListView(
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFFD4AF37),
               ),
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(
                       color: Color(0xFF24294b),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.person,
                       color: Color(0xFFD4AF37),
                       size: 40,
                     ),
                   ),
-                  SizedBox(width: 16),
-                  Text(
+                  const SizedBox(width: 16),
+                  const Text(
                     "Profile",
                     style: TextStyle(
                       color: Color(0xFF24294b),
@@ -178,12 +214,25 @@ class _HomescreenState extends State<Homescreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
             // Image Carousel
+            Column(
+              children: [
+                Text(
+                  "Create Your Moment With Us",
+                  style: TextStyle(
+                    fontFamily: 'Gill Sans',
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFFD4AF37),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
             SizedBox(
-              height: 196,
+              height: 220,
               width: double.infinity,
               child: PageView.builder(
                 controller: controller,
@@ -192,34 +241,21 @@ class _HomescreenState extends State<Homescreen> {
                     currentIndex = index % images.length;
                   });
                 },
-                //itemCount: images.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      height: 300,
-                      width: double.infinity,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(
-                          images[index % images.length],
-                          fit: BoxFit.cover,
-                        ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        images[index % images.length],
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    // child: ClipRRect(
-                    //   borderRadius: BorderRadius.circular(12),
-                    //   child: Image.asset(
-                    //     images[index],
-                    //     fit: BoxFit.cover,
-                    //     width: double.infinity,
-                    //   ),
-                    // ),
                   );
                 },
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -228,49 +264,77 @@ class _HomescreenState extends State<Homescreen> {
               ],
             ),
             Container(
-              margin: EdgeInsets.all(0),
+              margin: const EdgeInsets.all(0),
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      controller.jumpToPage(currentIndex - 1);
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    ),
+                    onTap: () => controller.jumpToPage(currentIndex - 1),
+                    child: const Icon(Icons.arrow_back, color: Colors.black),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      controller.jumpToPage(currentIndex + 1);
-                    },
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ),
+                    onTap: () => controller.jumpToPage(currentIndex + 1),
+                    child: const Icon(Icons.arrow_forward, color: Colors.black),
                   ),
                 ],
               ),
-            )
-            // Page Indicator
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: List.generate(
-            //     images.length,
-            //       (index) =>
-            //     // (index) => Container(
-            //     //   margin: const EdgeInsets.symmetric(horizontal: 4),
-            //     //   width: currentIndex == index ? 12 : 8,
-            //     //   height: currentIndex == index ? 12 : 8,
-            //     //   decoration: BoxDecoration(
-            //     //     color: currentIndex == index ? Colors.amber : Colors.grey,
-            //     //     shape: BoxShape.circle,
-            //     //   ),
-            //     // ),
-            //   ),
-            // ),
+            ),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Upcoming Events',
+                  style: TextStyle(
+                    color: Color(0xFF24294b),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Event Cards in a grid
+
+            GridView.count(
+              shrinkWrap: true,
+              // <-- Important for scrolling
+              physics: const NeverScrollableScrollPhysics(),
+              // <-- Let parent handle scrolling
+              crossAxisCount: 2,
+              childAspectRatio: 0.8,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              children: [
+                EventCard(
+                  title: 'Music Festival',
+                  date: 'June 15, 2025',
+                  imageUrl: 'assets/event1.png',
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                ),
+                EventCard(
+                  title: 'Food Festival',
+                  date: 'April 22, 2025',
+                  imageUrl: 'assets/event2.jpg',
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                ),
+                EventCard(
+                  title: 'Business Meetup',
+                  date: 'May 22, 2025',
+                  imageUrl: 'assets/event3.jpg',
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                ),
+                EventCard(
+                  title: 'Corporate Event',
+                  date: 'May 28, 2025',
+                  imageUrl: 'assets/event4.jpg',
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.events),
+                ),
+              ],
+            ),
           ],
         ),
       ),
