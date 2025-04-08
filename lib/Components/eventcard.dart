@@ -95,7 +95,7 @@ class EventCard extends StatelessWidget {
                   Text(
                     date,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white,
                       fontSize: 14,
                     ),
                   ),
@@ -106,7 +106,6 @@ class EventCard extends StatelessWidget {
                       onPressed: onTap,
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(40),
-                        shape: RoundedRectangleBorder(),
                       ),
                       child: const Text(
                         'BOOK NOW',

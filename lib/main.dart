@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: const Color(0xFFD4AF37),
             foregroundColor: const Color(0xFF24294b),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
             ),
             elevation: 5,
             textStyle: TextStyle(
