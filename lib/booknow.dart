@@ -475,7 +475,7 @@ class _BooknowState extends State<Booknow> {
                         color: Colors.white,
                         shadows: [
                           Shadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withOpacity(0.4),
                             offset: const Offset(2, 2),
                             blurRadius: 4,
                           ),
@@ -485,7 +485,7 @@ class _BooknowState extends State<Booknow> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.1),
+                        color: Colors.white.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -493,7 +493,7 @@ class _BooknowState extends State<Booknow> {
                           Expanded(
                             child: RadioListTile<String>(
                               title: const Text("Yes",
-                                  style: TextStyle(color: Colors.white)),
+                                  style: TextStyle(color: Colors.black)),
                               value: "Yes",
                               groupValue: _photographyOption,
                               onChanged: (value) =>
@@ -504,7 +504,7 @@ class _BooknowState extends State<Booknow> {
                           Expanded(
                             child: RadioListTile<String>(
                               title: const Text("No",
-                                  style: TextStyle(color: Colors.white)),
+                                  style: TextStyle(color: Colors.black)),
                               value: "No",
                               groupValue: _photographyOption,
                               onChanged: (value) =>
