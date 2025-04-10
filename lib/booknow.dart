@@ -26,9 +26,20 @@ class _BooknowState extends State<Booknow> {
   final TextEditingController _themeController = TextEditingController();
   final TextEditingController _cateringController = TextEditingController();
 
-  String _eventType = 'Wedding';
+  String? _eventType = 'Wedding'; // Changed to nullable String for validation
   bool _agreeTerms = false;
   String _photographyOption = 'Yes';
+
+  // List of event types
+  final List<String> _eventTypes = [
+    'Wedding',
+    'Birthday',
+    'Party',
+    'Business Meeting',
+    'Corporate Meeting',
+    'Picnic',
+    'Others',
+  ];
 
   Future<void> _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -57,12 +68,22 @@ class _BooknowState extends State<Booknow> {
     }
   }
 
-  InputDecoration buildInputDecoration(String label, IconData icon) {
+  InputDecoration buildInputDecoration(String label, IconData icon,
+      {String? hintText}) {
     return InputDecoration(
       labelText: label,
-      prefixIcon: Icon(icon, color: const Color(0xFF24294b)),
+      hintText: hintText,
+      labelStyle: const TextStyle(color: Colors.black54, fontSize: 18),
+      hintStyle: TextStyle(color: Colors.grey.withOpacity(0.7), fontSize: 18),
+      prefixIcon: Icon(icon, color: const Color(0xFF24294b), size: 28),
       filled: true,
       fillColor: Colors.white.withOpacity(0.9),
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: BorderSide.none,
+      ),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: Color(0xFFD4AF37), width: 2),
         borderRadius: BorderRadius.circular(15),
@@ -78,6 +99,34 @@ class _BooknowState extends State<Booknow> {
       focusedErrorBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: Colors.red, width: 2),
         borderRadius: BorderRadius.circular(15),
+      ),
+    );
+  }
+
+  void _resetForm() {
+    _formKey.currentState?.reset();
+    _dateController.clear();
+    _venueController.clear();
+    _locationController.clear();
+    _peopleController.clear();
+    _arrangementController.clear();
+    _budgetController.clear();
+    _contactController.clear();
+    _emailController.clear();
+    _noteController.clear();
+    _startTimeController.clear();
+    _endTimeController.clear();
+    _themeController.clear();
+    _cateringController.clear();
+    setState(() {
+      _eventType = 'Wedding'; // Reset to default
+      _agreeTerms = false;
+      _photographyOption = 'Yes';
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Form has been reset"),
+        backgroundColor: Colors.blue,
       ),
     );
   }
@@ -105,7 +154,7 @@ class _BooknowState extends State<Booknow> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('🎉 Book Your Event'),
-        backgroundColor: Color(0xFF24294b),
+        backgroundColor: const Color(0xFF24294b),
         elevation: 0,
       ),
       extendBodyBehindAppBar: true,
@@ -198,12 +247,65 @@ class _BooknowState extends State<Booknow> {
                       ),
                       child: Column(
                         children: [
+                          // Align(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: Text(
+                          //     "Event Type",
+                          //     style: TextStyle(
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: 20,
+                          //       color: Colors.black,
+                          //       shadows: [
+                          //         Shadow(
+                          //           color: Colors.black.withOpacity(0.3),
+                          //           offset: const Offset(2, 2),
+                          //           blurRadius: 4,
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 5),
+                          DropdownButtonFormField<String>(
+                            value: _eventType,
+                            decoration: buildInputDecoration(
+                              "Event Type",
+                              Icons.event_available,
+                              hintText: "Select event type",
+                            ),
+                            items: _eventTypes.map((String type) {
+                              return DropdownMenuItem<String>(
+                                value: type,
+                                child: Text(
+                                  type,
+                                  style: const TextStyle(
+                                      color: Colors.black87, fontSize: 20),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _eventType = newValue;
+                              });
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select an event type';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
                           TextFormField(
                             controller: _venueController,
-                            decoration:
-                                buildInputDecoration("Venue Name", Icons.event),
+                            decoration: buildInputDecoration(
+                              "Venue Name",
+                              Icons.event,
+                              hintText: "Enter venue name",
+                            ),
                             style: const TextStyle(
                                 color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter venue name';
@@ -215,9 +317,13 @@ class _BooknowState extends State<Booknow> {
                           TextFormField(
                             controller: _locationController,
                             decoration: buildInputDecoration(
-                                "Location", Icons.location_on),
+                              "Location",
+                              Icons.location_on,
+                              hintText: "Enter event location",
+                            ),
                             style: const TextStyle(
                                 color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter location';
@@ -231,8 +337,13 @@ class _BooknowState extends State<Booknow> {
                             readOnly: true,
                             onTap: () => _selectDate(context),
                             decoration: buildInputDecoration(
-                                "Event Date", Icons.calendar_today),
-                            style: const TextStyle(color: Colors.black87),
+                              "Event Date",
+                              Icons.calendar_today,
+                              hintText: "Select date",
+                            ),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please select event date';
@@ -250,8 +361,13 @@ class _BooknowState extends State<Booknow> {
                                   onTap: () =>
                                       _selectTime(_startTimeController),
                                   decoration: buildInputDecoration(
-                                      "Start Time", Icons.access_time),
-                                  style: const TextStyle(color: Colors.black87),
+                                    "Start Time",
+                                    Icons.access_time,
+                                    hintText: "Select start time",
+                                  ),
+                                  style: const TextStyle(
+                                      color: Colors.black87, fontSize: 20),
+                                  maxLines: 1,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Required';
@@ -267,8 +383,13 @@ class _BooknowState extends State<Booknow> {
                                   readOnly: true,
                                   onTap: () => _selectTime(_endTimeController),
                                   decoration: buildInputDecoration(
-                                      "End Time", Icons.access_time),
-                                  style: const TextStyle(color: Colors.black87),
+                                    "End Time",
+                                    Icons.access_time,
+                                    hintText: "Select end time",
+                                  ),
+                                  style: const TextStyle(
+                                      color: Colors.black87, fontSize: 20),
+                                  maxLines: 1,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Required';
@@ -283,14 +404,18 @@ class _BooknowState extends State<Booknow> {
                           TextFormField(
                             controller: _peopleController,
                             decoration: buildInputDecoration(
-                                "Number of People", Icons.group),
+                              "Number of People",
+                              Icons.group,
+                              hintText: "Enter number of attendees",
+                            ),
                             keyboardType: TextInputType.number,
-                            style: const TextStyle(color: Colors.black87),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter number of people';
                               }
-                              // Check if the input contains only integers
                               if (!RegExp(r'^\d+$').hasMatch(value)) {
                                 return 'Please enter only numbers';
                               }
@@ -305,22 +430,38 @@ class _BooknowState extends State<Booknow> {
                           TextFormField(
                             controller: _arrangementController,
                             decoration: buildInputDecoration(
-                                "Special Arrangements", Icons.chair),
-                            style: const TextStyle(color: Colors.black87),
+                              "Special Arrangements",
+                              Icons.chair,
+                              hintText: "Enter special requirements",
+                            ),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
+                            textAlignVertical: TextAlignVertical.center,
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
                             controller: _themeController,
                             decoration: buildInputDecoration(
-                                "Theme/Color Preference", Icons.palette),
-                            style: const TextStyle(color: Colors.black87),
+                              "Theme/Color Preference",
+                              Icons.palette,
+                              hintText: "Enter theme or color scheme",
+                            ),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
                             controller: _cateringController,
                             decoration: buildInputDecoration(
-                                "Catering Details", Icons.restaurant),
-                            style: const TextStyle(color: Colors.black87),
+                              "Catering Details",
+                              Icons.restaurant,
+                              hintText: "Enter catering preferences",
+                            ),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                           ),
                         ],
                       ),
@@ -393,9 +534,14 @@ class _BooknowState extends State<Booknow> {
                           TextFormField(
                             controller: _budgetController,
                             decoration: buildInputDecoration(
-                                "Estimated Budget (BDT)", Icons.attach_money),
+                              "Estimated Budget (BDT)",
+                              Icons.attach_money,
+                              hintText: "Enter your budget",
+                            ),
                             keyboardType: TextInputType.number,
-                            style: const TextStyle(color: Colors.black87),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter budget';
@@ -411,9 +557,14 @@ class _BooknowState extends State<Booknow> {
                           TextFormField(
                             controller: _contactController,
                             decoration: buildInputDecoration(
-                                "Contact Number", Icons.phone),
+                              "Contact Number",
+                              Icons.phone,
+                              hintText: "Enter phone number",
+                            ),
                             keyboardType: TextInputType.phone,
-                            style: const TextStyle(color: Colors.black87),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter contact number';
@@ -427,10 +578,15 @@ class _BooknowState extends State<Booknow> {
                           const SizedBox(height: 20),
                           TextFormField(
                             controller: _emailController,
-                            decoration:
-                                buildInputDecoration("Email", Icons.email),
+                            decoration: buildInputDecoration(
+                              "Email",
+                              Icons.email,
+                              hintText: "Enter your email",
+                            ),
                             keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(color: Colors.black87),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            maxLines: 1,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter email';
@@ -446,9 +602,14 @@ class _BooknowState extends State<Booknow> {
                           TextFormField(
                             controller: _noteController,
                             decoration: buildInputDecoration(
-                                "Additional Notes", Icons.note),
-                            maxLines: 3,
-                            style: const TextStyle(color: Colors.black87),
+                              "Additional Notes",
+                              Icons.note,
+                              hintText: "Enter any additional information",
+                            ),
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 20),
+                            minLines: 3,
+                            maxLines: 5,
                           ),
                         ],
                       ),
@@ -480,84 +641,90 @@ class _BooknowState extends State<Booknow> {
                     ),
                     const SizedBox(height: 20),
                     Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFD4AF37),
-                          foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 15),
-                          textStyle: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          elevation: 8,
-                          shadowColor: Colors.black.withOpacity(0.3),
-                        ),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate() &&
-                              _agreeTerms) {
-                            // Additional check for people field to contain only integers
-                            final peopleValue = _peopleController.text;
-                            if (!RegExp(r'^\d+$').hasMatch(peopleValue)) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      "Number of people must contain only integers"),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
-                              return;
-                            }
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFD4AF37),
+                              foregroundColor: Colors.black,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 15),
+                              textStyle: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              elevation: 8,
+                              shadowColor: Colors.black.withOpacity(0.3),
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate() &&
+                                  _agreeTerms) {
+                                final peopleValue = _peopleController.text;
+                                if (!RegExp(r'^\d+$').hasMatch(peopleValue)) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          "Number of people must contain only integers"),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                  return;
+                                }
 
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) => const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xFFD4AF37),
-                                ),
-                              ),
-                            );
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => const Center(
+                                    child: CircularProgressIndicator(
+                                      color: Color(0xFFD4AF37),
+                                    ),
+                                  ),
+                                );
 
-                            await Future.delayed(const Duration(seconds: 1));
-                            Navigator.pop(context);
+                                await Future.delayed(
+                                    const Duration(seconds: 1));
+                                Navigator.pop(context);
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("🎉 Event booked successfully!"),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text("🎉 Event booked successfully!"),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
 
-                            _formKey.currentState!.reset();
-                            _dateController.clear();
-                            _venueController.clear();
-                            _locationController.clear();
-                            _peopleController.clear();
-                            _arrangementController.clear();
-                            _budgetController.clear();
-                            _contactController.clear();
-                            _emailController.clear();
-                            _noteController.clear();
-                            _startTimeController.clear();
-                            _endTimeController.clear();
-                            _themeController.clear();
-                            _cateringController.clear();
-                            setState(() {
-                              _agreeTerms = false;
-                              _photographyOption = 'Yes';
-                            });
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    "⚠️ Please complete the form correctly and agree to the terms"),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text("Book Now"),
+                                _resetForm();
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        "⚠️ Please complete the form correctly and agree to the terms"),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            },
+                            child: const Text("Book Now"),
+                          ),
+                          const SizedBox(width: 20),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 15),
+                              textStyle: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              elevation: 8,
+                              shadowColor: Colors.black.withOpacity(0.3),
+                            ),
+                            onPressed: _resetForm,
+                            child: const Text("Reset"),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 20),
