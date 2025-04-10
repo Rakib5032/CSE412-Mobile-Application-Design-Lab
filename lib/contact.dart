@@ -11,20 +11,22 @@ class EmergencyContact extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFD4AF37)),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.call, color: Color(0xFFD4AF37)),
+            Icon(Icons.call, color: Color(0xFFD4AF37), size: 24),
             SizedBox(width: 10),
-            Text(
-              'Emergency Contact',
-              style: TextStyle(
-                color: Color(0xFFD4AF37),
-                fontWeight: FontWeight.bold,
+            Flexible(
+              child: Text(
+                'Emergency Contact',
+                style: TextStyle(
+                  color: Color(0xFFD4AF37),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -40,74 +42,87 @@ class EmergencyContact extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              _buildDesktopContactCard(
-                name: 'Bishal Biswas',
-                position: 'Project Manager',
-                phone: '+8801761896783',
-                email: 'biswas15-5394@diu.edu.bd',
-                studentId: '221-15-5394',
-                imageUrl:
-                'https://drive.google.com/uc?export=view&id=1zxuqQGwIcITBaIGpAdHNJSz95ZP_V4NL',
-                context: context,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth:
+                    constraints.maxWidth > 800 ? 800 : constraints.maxWidth,
               ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Rakibul Haque Rabbi',
-                position: 'Head Developer',
-                phone: '+8801521797236',
-                email: 'rabbi15-5032@diu.edu.bd',
-                studentId: '221-15-5032',
-                imageUrl:
-                'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_2',
-                context: context,
+              child: ListView(
+                padding: const EdgeInsets.all(8),
+                children: [
+                  _buildContactCard(
+                    name: 'Bishal Biswas',
+                    position: 'Project Manager',
+                    phone: '+8801761896783',
+                    email: 'biswas15-5394@diu.edu.bd',
+                    studentId: '221-15-5394',
+                    imageUrl:
+                        'https://drive.google.com/uc?export=view&id=1zxuqQGwIcITBaIGpAdHNJSz95ZP_V4NL',
+                    context: context,
+                  ),
+                  const SizedBox(height: 8),
+                  _buildContactCard(
+                    name: 'Rakibul Haque Rabbi',
+                    position: 'Head Developer',
+                    phone: '+8801521797236',
+                    email: 'rabbi15-5032@diu.edu.bd',
+                    studentId: '221-15-5032',
+                    imageUrl:
+                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_2',
+                    context: context,
+                  ),
+                  const SizedBox(height: 8),
+                  _buildContactCard(
+                    name: 'Md. Shadman Shani Pavel',
+                    position: 'Structure Designer',
+                    phone: '+8801533120838',
+                    email: 'shani15-4836@diu.edu.bd',
+                    studentId: '221-15-4836',
+                    imageUrl:
+                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_3',
+                    context: context,
+                  ),
+                  const SizedBox(height: 8),
+                  _buildContactCard(
+                    name: 'Shahid Kaisar Apon',
+                    position: 'Junior UI Designer',
+                    phone: '+8801708957793',
+                    email: 'apon15-5358@diu.edu.bd',
+                    studentId: '221-15-5358',
+                    imageUrl:
+                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_4',
+                    context: context,
+                  ),
+                  const SizedBox(height: 8),
+                  _buildContactCard(
+                    name: 'Seyam Sarker',
+                    position: 'Q/A & Tester',
+                    phone: '+8801643788962',
+                    email: 'sarkar15-5795@diu.edu.bd',
+                    studentId: '221-15-5795',
+                    imageUrl:
+                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_5',
+                    context: context,
+                  ),
+                  // Add other contact cards...
+                ]
+                    .map((card) => Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: card,
+                        ))
+                    .toList(),
               ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Md. Shadman Shani Pavel',
-                position: 'Structure Designer',
-                phone: '+8801533120838',
-                email: 'shani15-4836@diu.edu.bd',
-                studentId: '221-15-4836',
-                imageUrl:
-                'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_3',
-                context: context,
-              ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Shahid Kaisar Apon',
-                position: 'Junior UI Designer',
-                phone: '+8801708957793',
-                email: 'apon15-5358@diu.edu.bd',
-                studentId: '221-15-5358',
-                imageUrl:
-                'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_4',
-                context: context,
-              ),
-              const SizedBox(height: 16),
-              _buildDesktopContactCard(
-                name: 'Seyam Sarker',
-                position: 'Q/A & Tester',
-                phone: '+8801643788962',
-                email: 'sarkar15-5795@diu.edu.bd',
-                studentId: '221-15-5795',
-                imageUrl:
-                'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_5',
-                context: context,
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildDesktopContactCard({
+  Widget _buildContactCard({
     required String name,
     required String position,
     required String phone,
@@ -123,119 +138,136 @@ class EmergencyContact extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                imageUrl,
-                width: 120,
-                height: 120,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: 120,
-                    height: 120,
-                    color: Colors.grey,
-                    child:
-                    const Icon(Icons.person, size: 60, color: Colors.white),
-                  );
-                },
+        padding: const EdgeInsets.all(14),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Profile Image
+              Container(
+                width: 100,
+                height: 100,
+                margin: const EdgeInsets.only(right: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.grey[800],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => const Center(
+                      child: Icon(Icons.person, size: 40, color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color(0xFFD4AF37),
-                    ),
-                  ),
-                  Text(
-                    position,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'ID: $studentId',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.white60,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  GestureDetector(
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(text: phone));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Copied phone number: $phone'),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                    child: Row(
+
+              // Contact Info
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Name and Position
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.phone,
-                            size: 18, color: Colors.white70),
-                        const SizedBox(width: 10),
                         Text(
-                          phone,
+                          name,
                           style: const TextStyle(
-                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Color(0xFFD4AF37),
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          position,
+                          style: const TextStyle(
+                            fontSize: 15,
                             color: Colors.white70,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(width: 5),
-                        const Icon(Icons.content_copy,
-                            size: 16, color: Colors.white54),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(text: email));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Copied email: $email'),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.email,
-                            size: 18, color: Colors.white70),
-                        const SizedBox(width: 10),
                         Text(
-                          email,
+                          'ID: $studentId',
                           style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white70,
+                            fontSize: 14,
+                            color: Colors.white60,
                           ),
                         ),
-                        const SizedBox(width: 5),
-                        const Icon(Icons.content_copy,
-                            size: 16, color: Colors.white54),
                       ],
                     ),
-                  ),
-                ],
+
+                    const SizedBox(height: 8),
+
+                    // Contact Details
+                    Column(
+                      children: [
+                        _buildContactRow(
+                          icon: Icons.phone,
+                          text: phone,
+                          onTap: () =>
+                              _copyToClipboard(context, 'phone', phone),
+                        ),
+                        const SizedBox(height: 8),
+                        _buildContactRow(
+                          icon: Icons.email,
+                          text: email,
+                          onTap: () =>
+                              _copyToClipboard(context, 'email', email),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildContactRow({
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: Colors.white70),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white70,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(width: 5),
+          const Icon(Icons.content_copy, size: 16, color: Colors.white54),
+        ],
+      ),
+    );
+  }
+
+  void _copyToClipboard(BuildContext context, String type, String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Copied $type: $text'),
+        duration: const Duration(seconds: 1),
       ),
     );
   }

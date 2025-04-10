@@ -347,6 +347,12 @@ class _HomescreenState extends State<Homescreen> {
                   imageUrl: 'assets/event4.jpg',
                   onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
                 ),
+                EventCard(
+                  title: 'March to Sahabag',
+                  date: 'April 11, 2025',
+                  imageUrl: 'assets/event4.jpg',
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
+                ),
               ],
             ),
           ],

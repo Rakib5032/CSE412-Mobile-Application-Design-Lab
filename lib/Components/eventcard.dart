@@ -7,7 +7,6 @@ class EventGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Split the cards into pairs for each row
     List<List<EventCard>> rows = [];
     for (int i = 0; i < eventCards.length; i += 2) {
       if (i + 1 < eventCards.length) {
@@ -54,20 +53,20 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 3,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
       ),
-      color: const Color(0xFF24294b),
+      color: Color(0xFF24294b),
       child: InkWell(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
               borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(12)),
+                  const BorderRadius.vertical(top: Radius.circular(16)),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
                 child: Image.asset(
@@ -91,26 +90,32 @@ class EventCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     date,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 2),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: onTap,
                       style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(40),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: const Color(0xFFD4AF37),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                       child: const Text(
                         'BOOK NOW',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
                     ),
