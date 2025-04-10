@@ -64,7 +64,7 @@ class _HomescreenState extends State<Homescreen> {
         title: const Text(
           "EventMate",
           style: TextStyle(
-              color: Colors.white70,
+              color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
               fontFamily: 'Raleway'),
@@ -232,15 +232,37 @@ class _HomescreenState extends State<Homescreen> {
             // Image Carousel
             Column(
               children: [
-                Text(
-                  "Your Next Big Memory, Starts Here",
-                  style: TextStyle(
-                    fontFamily: 'Gill Sans',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: Color(0xFFD4AF37),
+                Container(
+                  height: 50, // More prominent height
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white.withOpacity(0.9), // Semi-transparent
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.9),
+                      width: 1,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 15,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
                   ),
+                  child: Center(
+                      child: Text(
+                    "Your Next Big Memory, Starts Here",
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display', // Unified elegant serif
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.italic,
+                      color: Color(0xFFD4AF37),
+                      height: 1.3,
+                    ),
+                  )),
                 )
               ],
             ),
@@ -355,6 +377,38 @@ class _HomescreenState extends State<Homescreen> {
                 ),
               ],
             ),
+            Container(
+              height: 50, // More prominent height
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: Colors.white.withOpacity(0.9), // Semi-transparent
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.9),
+                  width: 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 15,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Center(
+                  child: Text(
+                " ",
+                style: TextStyle(
+                  fontFamily: 'Playfair Display', // Unified elegant serif
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFFD4AF37),
+                  height: 1.3,
+                ),
+              )),
+            )
           ],
         ),
       ),
