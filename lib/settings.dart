@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Auth/LogIn.dart';
+
 class Settings extends StatefulWidget {
   const Settings({super.key});
 
@@ -84,7 +86,11 @@ class _SettingsState extends State<Settings> {
             _buildListTile(
               icon: Icons.exit_to_app,
               title: 'Logout',
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const LoginPage()));
+              },
             ),
           ],
         ),

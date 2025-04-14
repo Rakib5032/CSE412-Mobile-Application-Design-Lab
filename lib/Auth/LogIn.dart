@@ -49,9 +49,9 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Color(0xFFD4AF37),
         ),
       );
-
       // You can navigate to the Home screen after successful login if needed
-      Future.delayed(const Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 1), () {
+        Navigator.pop(context);
         Navigator.pushNamed(context, AppRoutes.home);
       });
     }

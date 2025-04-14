@@ -1,6 +1,7 @@
 import 'dart:async'; // Add this import for Timer
 
 import 'package:flutter/material.dart';
+import 'package:project/Auth/login.dart';
 import 'package:project/routes.dart';
 
 import 'Components/eventcard.dart';
@@ -219,7 +220,8 @@ class _HomescreenState extends State<Homescreen> {
                     fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const LoginPage()));
               },
             ),
           ],

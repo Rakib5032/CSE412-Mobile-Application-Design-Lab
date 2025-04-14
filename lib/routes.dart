@@ -13,7 +13,7 @@ import 'Auth/login_or_register.dart';
 class AppRoutes {
   AppRoutes._(); // Private constructor
 
-  static const String loginOrRegister = '/';
+  static const String loginOrRegister = '/loginOrRegister';
   static const String feedback = '/feedback';
   static const String events = '/events';
   static const String contact = '/contact';
