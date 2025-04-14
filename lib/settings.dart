@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Auth/LogIn.dart';
+import 'Auth/login_or_register.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -88,8 +88,10 @@ class _SettingsState extends State<Settings> {
               title: 'Logout',
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const LoginPage()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const LoginOrRegisterPages()));
               },
             ),
           ],
