@@ -190,7 +190,7 @@ class HelpCenterPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'support@yourapp.com',
+                            'abbishal25@gmail.com',
                             style: TextStyle(
                               color: const Color(0xFFD4AF37),
                               fontSize: 16,

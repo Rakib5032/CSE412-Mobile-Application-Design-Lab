@@ -43,17 +43,6 @@ class NotificationsPage extends StatelessWidget {
             ),
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              icon: const Icon(Icons.settings, color: Color(0xFFD4AF37)),
-              onPressed: () {
-                // Navigate to notification settings
-              },
-            ),
-          ),
-        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
@@ -165,6 +154,13 @@ class NotificationsPage extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Leading notification alert icon
+          Icon(
+            Icons.notifications,
+            color: isRead ? const Color(0xFFD4AF37).withOpacity(0.5) : const Color(0xFFD4AF37),
+            size: 24,
+          ),
+          const SizedBox(width: 12),
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
