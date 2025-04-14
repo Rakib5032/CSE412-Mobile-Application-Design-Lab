@@ -1,10 +1,10 @@
 import 'dart:async'; // Add this import for Timer
 
 import 'package:flutter/material.dart';
-import 'package:project/routes.dart';
+import 'package:project/screens/routes.dart';
 
-import 'Auth/login_or_register.dart';
-import 'Components/eventcard.dart';
+import '../Components/eventcard.dart';
+import 'login_or_register.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Auth/login_or_register.dart';
+import 'login_or_register.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -91,7 +91,7 @@ class _SettingsState extends State<Settings> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => const LoginOrRegisterPages()));
+                        builder: (_) => const LoginOrRegisterPage()));
               },
             ),
           ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/routes.dart';
+import 'package:project/screens/routes.dart';
 
-import 'Components/eventcard.dart';
+import '../Components/eventcard.dart';
 
 class EventScreen extends StatelessWidget {
   const EventScreen({super.key});
