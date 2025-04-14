@@ -39,36 +39,21 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() {
     if (_formKey.currentState!.validate()) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          backgroundColor: const Color(0xFF24294b),
-          title: const Text(
-            'Success',
-            style: TextStyle(
-              color: Color(0xFFD4AF37),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: const Text(
+      // Displaying success message using ScaffoldMessenger
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
             'Login successful',
-            style: TextStyle(
-              color: Color(0xFFD4AF37),
-            ),
+            style: TextStyle(color: Colors.white),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                'OK',
-                style: TextStyle(
-                  color: Color(0xFFD4AF37),
-                ),
-              ),
-            ),
-          ],
+          backgroundColor: Color(0xFFD4AF37),
         ),
       );
+
+      // You can navigate to the Home screen after successful login if needed
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.pushNamed(context, AppRoutes.home);
+      });
     }
   }
 
@@ -220,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Create new account action
+                      // Navigate to Sign Up page
                       Navigator.pushNamed(context, AppRoutes.signup);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Please Sign Up')),
