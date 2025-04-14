@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import '../routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -147,7 +145,8 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFFD4AF37), width: 2),
+                    borderSide:
+                        const BorderSide(color: Color(0xFFD4AF37), width: 2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   fillColor: const Color(0xFF24294b),
@@ -179,7 +178,8 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFFD4AF37), width: 2),
+                    borderSide:
+                        const BorderSide(color: Color(0xFFD4AF37), width: 2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   fillColor: const Color(0xFF24294b),
@@ -201,9 +201,9 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Forgot password action
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Forgot Password clicked')),
+                        const SnackBar(
+                            content: Text('Forgot Password clicked')),
                       );
                     },
                     child: const Text(
@@ -221,8 +221,9 @@ class _LoginPageState extends State<LoginPage> {
                   GestureDetector(
                     onTap: () {
                       // Create new account action
+                      Navigator.pushNamed(context, AppRoutes.signup);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Sign Up clicked')),
+                        const SnackBar(content: Text('Please Sign Up')),
                       );
                     },
                     child: const Text(
@@ -240,7 +241,8 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFD4AF37),
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),

@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.home,
+      //initialRoute: AppRoutes.loginOrRegister,
       onGenerateRoute: AppRoutes.generateRoute,
       // home: HomeScreen(),
       theme: ThemeData(

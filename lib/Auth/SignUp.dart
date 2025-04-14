@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
+import 'package:project/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -172,7 +169,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
                   }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      .hasMatch(value)) {
                     return 'Please enter a valid email';
                   }
                   return null;
@@ -209,21 +207,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   ListTile(
-                                    title: const Text('+880 (Bangladesh)', style: TextStyle(color: Colors.white)),
+                                    title: const Text('+880 (Bangladesh)',
+                                        style: TextStyle(color: Colors.white)),
                                     onTap: () {
                                       setState(() => _countryCode = '+880');
                                       Navigator.pop(context);
                                     },
                                   ),
                                   ListTile(
-                                    title: const Text('+1 (USA)', style: TextStyle(color: Colors.white)),
+                                    title: const Text('+1 (USA)',
+                                        style: TextStyle(color: Colors.white)),
                                     onTap: () {
                                       setState(() => _countryCode = '+1');
                                       Navigator.pop(context);
                                     },
                                   ),
                                   ListTile(
-                                    title: const Text('+44 (UK)', style: TextStyle(color: Colors.white)),
+                                    title: const Text('+44 (UK)',
+                                        style: TextStyle(color: Colors.white)),
                                     onTap: () {
                                       setState(() => _countryCode = '+44');
                                       Navigator.pop(context);
@@ -235,7 +236,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           );
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 16),
                           decoration: BoxDecoration(
                             color: const Color(0xFF3A3F68),
                             borderRadius: BorderRadius.circular(8),
@@ -245,10 +247,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             children: [
                               Text(
                                 _countryCode,
-                                style: const TextStyle(color: Color(0xFFD4AF37)),
+                                style:
+                                    const TextStyle(color: Color(0xFFD4AF37)),
                               ),
                               const SizedBox(width: 4),
-                              const Icon(Icons.arrow_drop_down, color: Color(0xFFD4AF37)),
+                              const Icon(Icons.arrow_drop_down,
+                                  color: Color(0xFFD4AF37)),
                             ],
                           ),
                         ),
@@ -260,14 +264,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: 'Phone Number',
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                            hintStyle:
+                                TextStyle(color: Colors.white.withOpacity(0.5)),
                             filled: true,
                             fillColor: const Color(0xFF3A3F68),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide.none,
                             ),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 16),
                           ),
                           keyboardType: TextInputType.phone,
                           validator: (value) {
@@ -301,17 +307,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: 'Enter password',
-                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                      hintStyle:
+                          TextStyle(color: Colors.white.withOpacity(0.5)),
                       filled: true,
                       fillColor: const Color(0xFF3A3F68),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide.none,
                       ),
-                      prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFFD4AF37)),
+                      prefixIcon: const Icon(Icons.lock_outline,
+                          color: Color(0xFFD4AF37)),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                           color: const Color(0xFFD4AF37),
                         ),
                         onPressed: () {
@@ -414,7 +424,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    // Navigate to login screen
+                    Navigator.pop(context, AppRoutes.login);
                   },
                   child: const Text.rich(
                     TextSpan(

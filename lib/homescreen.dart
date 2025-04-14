@@ -370,7 +370,7 @@ class _HomescreenState extends State<Homescreen> {
                   onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
                 ),
                 EventCard(
-                  title: 'March to Sahabag',
+                  title: 'March fro Gaza',
                   date: 'April 11, 2025',
                   imageUrl: 'assets/event4.jpg',
                   onTap: () => Navigator.pushNamed(context, AppRoutes.booknow),
