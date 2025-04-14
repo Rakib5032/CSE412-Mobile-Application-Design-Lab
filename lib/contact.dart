@@ -59,8 +59,7 @@ class EmergencyContact extends StatelessWidget {
                     phone: '+8801761896783',
                     email: 'biswas15-5394@diu.edu.bd',
                     studentId: '221-15-5394',
-                    imageUrl:
-                        'https://drive.google.com/uc?export=view&id=1zxuqQGwIcITBaIGpAdHNJSz95ZP_V4NL',
+                    imagePath: 'tm1.jpg',
                     context: context,
                   ),
                   const SizedBox(height: 8),
@@ -70,8 +69,7 @@ class EmergencyContact extends StatelessWidget {
                     phone: '+8801521797236',
                     email: 'rabbi15-5032@diu.edu.bd',
                     studentId: '221-15-5032',
-                    imageUrl:
-                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_2',
+                    imagePath: 'tm2.jpg',
                     context: context,
                   ),
                   const SizedBox(height: 8),
@@ -81,8 +79,7 @@ class EmergencyContact extends StatelessWidget {
                     phone: '+8801533120838',
                     email: 'shani15-4836@diu.edu.bd',
                     studentId: '221-15-4836',
-                    imageUrl:
-                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_3',
+                    imagePath: 'tm3.JPG',
                     context: context,
                   ),
                   const SizedBox(height: 8),
@@ -92,8 +89,7 @@ class EmergencyContact extends StatelessWidget {
                     phone: '+8801708957793',
                     email: 'apon15-5358@diu.edu.bd',
                     studentId: '221-15-5358',
-                    imageUrl:
-                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_4',
+                    imagePath: 'tm4.JPG',
                     context: context,
                   ),
                   const SizedBox(height: 8),
@@ -103,11 +99,9 @@ class EmergencyContact extends StatelessWidget {
                     phone: '+8801643788962',
                     email: 'sarkar15-5795@diu.edu.bd',
                     studentId: '221-15-5795',
-                    imageUrl:
-                        'https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_FILE_ID_5',
+                    imagePath: 'tm5.JPG',
                     context: context,
                   ),
-                  // Add other contact cards...
                 ]
                     .map((card) => Padding(
                           padding: const EdgeInsets.only(bottom: 16),
@@ -128,7 +122,7 @@ class EmergencyContact extends StatelessWidget {
     required String phone,
     required String email,
     required String studentId,
-    required String imageUrl,
+    required String imagePath,
     required BuildContext context,
   }) {
     return Card(
@@ -154,11 +148,15 @@ class EmergencyContact extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    imageUrl,
+                  child: Image.asset(
+                    imagePath,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const Center(
-                      child: Icon(Icons.person, size: 40, color: Colors.white),
+                    errorBuilder: (_, __, ___) => Container(
+                      color: Colors.grey[800],
+                      child: const Center(
+                        child:
+                            Icon(Icons.person, size: 40, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

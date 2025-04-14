@@ -1,0 +1,2 @@
+D:/Academic/Mobile Application Design/Lab/Project/CSE412-Mobile-Application-Design-Lab/android/app/.cxx/RelWithDebInfo/6y3f1x76/x86/CMakeFiles/edit_cache.dir
+D:/Academic/Mobile Application Design/Lab/Project/CSE412-Mobile-Application-Design-Lab/android/app/.cxx/RelWithDebInfo/6y3f1x76/x86/CMakeFiles/rebuild_cache.dir
