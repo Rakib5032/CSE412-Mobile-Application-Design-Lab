@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/Auth/auth_services.dart';
 import 'package:project/screens/routes.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,14 +28,84 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  // final _emailController = TextEditingController();
+  // final _passwordController = TextEditingController();
+  final _controllerEmail = TextEditingController();
+  final _controllerPassword = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _controllerEmail.dispose();
+    _controllerPassword.dispose();
     super.dispose();
+  }
+
+  bool _isLoading = false;
+  void signIn() async {
+    try {
+      // Show loading state
+      setState(() => _isLoading = true);
+
+      await authServices.value.signIn(
+        email: _controllerEmail.text.trim(),
+        password: _controllerPassword.text.trim(),
+      );
+
+      // Navigate on success if widget is still mounted
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, AppRoutes.home);
+      }
+    } on FirebaseAuthException catch (e) {
+      // Handle specific Firebase errors
+      String errorMessage;
+
+      switch (e.code) {
+        case 'invalid-email':
+          errorMessage = 'Please enter a valid email address';
+          break;
+        case 'user-disabled':
+          errorMessage = 'This account has been disabled';
+          break;
+        case 'user-not-found':
+          errorMessage = 'No account found with this email';
+          break;
+        case 'wrong-password':
+          errorMessage = 'Incorrect password';
+          break;
+        case 'too-many-requests':
+          errorMessage = 'Too many attempts. Try again later';
+          break;
+        default:
+          errorMessage = 'Login failed. Please try again';
+      }
+
+      // Show error message if widget is still mounted
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle any other errors
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('An unexpected error occurred'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      debugPrint('Login error: $e');
+    } finally {
+      // Hide loading state if widget is still mounted
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   void _login() {
@@ -114,9 +186,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 50),
               TextFormField(
-                controller: _emailController,
+                controller: _controllerEmail,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelText: 'Email',
@@ -146,9 +218,9 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               TextFormField(
-                controller: _passwordController,
+                controller: _controllerPassword,
                 style: const TextStyle(color: Colors.white),
                 obscureText: true,
                 decoration: InputDecoration(
@@ -222,7 +294,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _login,
+                onPressed: _isLoading ? null : signIn,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFD4AF37),
                   padding:

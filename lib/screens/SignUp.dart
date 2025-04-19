@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/Auth/auth_services.dart';
+import 'package:project/screens/login_or_register.dart';
 import 'package:project/screens/routes.dart';
 
 class MyApp extends StatelessWidget {
@@ -19,12 +22,13 @@ class MyApp extends StatelessWidget {
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
-
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
   bool _agreeToTerms = false;
   bool _obscurePassword = true;
   String _countryCode = '+880';
@@ -34,7 +38,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose() {
     _phoneController.dispose();
+    controllerEmail.dispose();
+    controllerPassword.dispose();
     super.dispose();
+  }
+
+  bool _isLoading = false;
+
+  get controller => null;
+
+  void register() async {
+    if (_formKey.currentState!.validate() && _agreeToTerms) {
+      setState(() => _isLoading = true);
+      try {
+        await authServices.value.createAccount(
+          email: controllerEmail.text.trim(),
+          password: controllerPassword.text.trim(),
+        );
+        if (mounted) {
+          _showSuccessDialog();
+        }
+      } on FirebaseAuthException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message ?? "Registration failed")),
+        );
+      } finally {
+        if (mounted) setState(() => _isLoading = false);
+      }
+    }
   }
 
   void _showSuccessDialog() {
@@ -54,13 +85,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
         content: const Text(
-          'Your account has been successfully created. You can now log in to access your account.',
+          'Account Created',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => LoginOrRegisterPage()),
+                (Route<dynamic> route) => false,
+              );
               // Navigate to login screen
             },
             child: const Text(
@@ -159,26 +194,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Email Field
-              _buildInputField(
-                label: 'Email',
-                hint: 'Enter email',
-                icon: Icons.email_outlined,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                      .hasMatch(value)) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Email',
+                    style: TextStyle(
+                      color: Color(0xFFD4AF37),
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: controllerEmail,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: 'Enter your email',
+                      hintStyle:
+                          TextStyle(color: Colors.white.withOpacity(0.5)),
+                      filled: true,
+                      fillColor: const Color(0xFF3A3F68),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                      prefixIcon: const Icon(Icons.email_outlined,
+                          color: Color(0xFFD4AF37)),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
 
-              // Phone Number Field - Corrected placement
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -277,8 +330,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           keyboardType: TextInputType.phone,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your phone number';
+                            if (value == null || value.length < 11) {
+                              return 'Please enter valid number';
                             }
                             return null;
                           },
@@ -303,6 +356,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
+                    controller: controllerPassword,
                     style: const TextStyle(color: Colors.white),
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
@@ -388,34 +442,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      if (_agreeToTerms) {
-                        _showSuccessDialog();
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please agree to Terms & Privacy'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFD4AF37),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      color: Color(0xFF24294b),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  onPressed: _isLoading
+                      ? null
+                      : () {
+                          if (_formKey.currentState!.validate()) {
+                            if (_agreeToTerms) {
+                              register();
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Please agree to Terms & Privacy')),
+                              );
+                            }
+                          }
+                        },
+                  child: _isLoading
+                      ? const CircularProgressIndicator(
+                          color: Color(0xFF24294b))
+                      : const Text('Sign Up'),
                 ),
               ),
               const SizedBox(height: 20),
@@ -474,6 +519,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         const SizedBox(height: 8),
         TextFormField(
+          controller: controller,
           style: const TextStyle(color: Colors.white),
           obscureText: obscureText,
           keyboardType: keyboardType,

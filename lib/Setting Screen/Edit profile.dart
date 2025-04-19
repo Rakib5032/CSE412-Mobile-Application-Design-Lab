@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Edit Profile',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const EditProfilePage(),
-    );
-  }
-}
-
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
@@ -28,10 +9,14 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController(text: 'Bishal Biswas');
-  final TextEditingController _addressController = TextEditingController(text: '49 R.k Mission Road,Mymensingh,Bangladesh');
-  final TextEditingController _phoneController = TextEditingController(text: '+8801761896783');
-  final TextEditingController _bioController = TextEditingController(text: 'I love Flutter development!');
+  final TextEditingController _nameController =
+      TextEditingController(text: 'Bishal Biswas');
+  final TextEditingController _addressController =
+      TextEditingController(text: '49 R.k Mission Road,Mymensingh,Bangladesh');
+  final TextEditingController _phoneController =
+      TextEditingController(text: '+8801761896783');
+  final TextEditingController _bioController =
+      TextEditingController(text: 'I love Flutter development!');
 
   void _showImageChangeMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -123,7 +108,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 decoration: InputDecoration(
                   labelText: 'Full Name',
                   labelStyle: const TextStyle(color: Color(0xFFD4AF37)),
-                  prefixIcon: const Icon(Icons.person, color: Color(0xFFD4AF37)),
+                  prefixIcon:
+                      const Icon(Icons.person, color: Color(0xFFD4AF37)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(color: Color(0xFFD4AF37)),
@@ -151,7 +137,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 decoration: InputDecoration(
                   labelText: 'Address',
                   labelStyle: const TextStyle(color: Color(0xFFD4AF37)),
-                  prefixIcon: const Icon(Icons.location_on, color: Color(0xFFD4AF37)),
+                  prefixIcon:
+                      const Icon(Icons.location_on, color: Color(0xFFD4AF37)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(color: Color(0xFFD4AF37)),
@@ -229,7 +216,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onPressed: _saveProfile,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFD4AF37),
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

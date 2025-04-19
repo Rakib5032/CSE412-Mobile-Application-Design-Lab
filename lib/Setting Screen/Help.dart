@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Help Center',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HelpCenterPage(),
-    );
-  }
-}
-
 class HelpCenterPage extends StatelessWidget {
   const HelpCenterPage({super.key});
 
@@ -250,32 +231,34 @@ class HelpCenterPage extends StatelessWidget {
           const SizedBox(height: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: items.map((item) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 4.0),
-                    child: Icon(
-                      Icons.circle,
-                      size: 8,
-                      color: Color(0xFFD4AF37),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      item,
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 15,
+            children: items
+                .map((item) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 4.0),
+                            child: Icon(
+                              Icons.circle,
+                              size: 8,
+                              color: Color(0xFFD4AF37),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            )).toList(),
+                    ))
+                .toList(),
           ),
         ],
       ),

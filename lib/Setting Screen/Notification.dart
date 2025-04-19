@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Notifications',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const NotificationsPage(),
-    );
-  }
-}
-
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
 
@@ -33,7 +14,8 @@ class NotificationsPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFD4AF37)),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Center( // Centered title
+        title: Center(
+          // Centered title
           child: Text(
             'Notifications',
             style: TextStyle(
@@ -157,7 +139,9 @@ class NotificationsPage extends StatelessWidget {
           // Leading notification alert icon
           Icon(
             Icons.notifications,
-            color: isRead ? const Color(0xFFD4AF37).withOpacity(0.5) : const Color(0xFFD4AF37),
+            color: isRead
+                ? const Color(0xFFD4AF37).withOpacity(0.5)
+                : const Color(0xFFD4AF37),
             size: 24,
           ),
           const SizedBox(width: 12),
@@ -186,7 +170,8 @@ class NotificationsPage extends StatelessWidget {
                       style: TextStyle(
                         color: const Color(0xFFD4AF37),
                         fontSize: 16,
-                        fontWeight: isRead ? FontWeight.normal : FontWeight.bold,
+                        fontWeight:
+                            isRead ? FontWeight.normal : FontWeight.bold,
                       ),
                     ),
                     Text(

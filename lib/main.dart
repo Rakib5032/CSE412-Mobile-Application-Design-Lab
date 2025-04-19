@@ -1,7 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project/screens/routes.dart';
 
-void main() {
+import 'Auth/firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    debugPrint("Firebase initialization error: $e");
+  }
+
+  // Remove these redundant lines:
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -12,10 +29,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //initialRoute: AppRoutes.loginOrRegister,
+      initialRoute: AppRoutes.loginOrRegister, // Essential
       onGenerateRoute: AppRoutes.generateRoute,
-      // home: HomeScreen(),
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFD4AF37),
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFD4AF37),
@@ -24,7 +45,7 @@ class MyApp extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             elevation: 5,
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -32,14 +53,14 @@ class MyApp extends StatelessWidget {
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 16,
             ),
           ),
         ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF24294b),
-          iconTheme: const IconThemeData(
+          iconTheme: IconThemeData(
             color: Colors.white,
           ),
           titleTextStyle: TextStyle(
@@ -49,16 +70,10 @@ class MyApp extends StatelessWidget {
           elevation: 5,
           centerTitle: true,
         ),
-        textTheme: TextTheme(
-          bodySmall: TextStyle(
-            fontSize: 10,
-          ),
-          bodyMedium: TextStyle(
-            fontSize: 18,
-          ),
-          bodyLarge: TextStyle(
-            fontSize: 22,
-          ),
+        textTheme: const TextTheme(
+          bodySmall: TextStyle(fontSize: 10),
+          bodyMedium: TextStyle(fontSize: 18),
+          bodyLarge: TextStyle(fontSize: 22),
         ),
       ),
     );

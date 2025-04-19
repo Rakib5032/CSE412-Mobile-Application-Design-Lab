@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -28,9 +24,11 @@ class ChangePasswordPage extends StatefulWidget {
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _currentPasswordController = TextEditingController();
+  final TextEditingController _currentPasswordController =
+      TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   bool _obscureCurrentPassword = true;
   bool _obscureNewPassword = true;
@@ -102,10 +100,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 decoration: InputDecoration(
                   labelText: 'Current Password',
                   labelStyle: const TextStyle(color: Color(0xFFD4AF37)),
-                  prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFFD4AF37)),
+                  prefixIcon:
+                      const Icon(Icons.lock_outline, color: Color(0xFFD4AF37)),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscureCurrentPassword ? Icons.visibility : Icons.visibility_off,
+                      _obscureCurrentPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       color: const Color(0xFFD4AF37),
                     ),
                     onPressed: () {
@@ -145,7 +146,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   prefixIcon: const Icon(Icons.lock, color: Color(0xFFD4AF37)),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscureNewPassword ? Icons.visibility : Icons.visibility_off,
+                      _obscureNewPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       color: const Color(0xFFD4AF37),
                     ),
                     onPressed: () {
@@ -185,10 +188,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 decoration: InputDecoration(
                   labelText: 'Confirm New Password',
                   labelStyle: const TextStyle(color: Color(0xFFD4AF37)),
-                  prefixIcon: const Icon(Icons.lock_reset, color: Color(0xFFD4AF37)),
+                  prefixIcon:
+                      const Icon(Icons.lock_reset, color: Color(0xFFD4AF37)),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                      _obscureConfirmPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       color: const Color(0xFFD4AF37),
                     ),
                     onPressed: () {
@@ -226,7 +232,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   onPressed: _changePassword,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFD4AF37),
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

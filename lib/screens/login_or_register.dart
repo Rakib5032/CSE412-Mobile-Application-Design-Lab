@@ -25,7 +25,7 @@ class LoginOrRegisterPage extends StatelessWidget {
                   color: Color(0xFFD4AF37),
                 ),
                 child: ClipOval(
-                  child: Image.asset('logo.png'),
+                  child: Image.asset('assets/logo.png'),
                 ),
               ),
               const SizedBox(height: 30),

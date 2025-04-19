@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project/Auth/log_out.dart';
 
-import 'login_or_register.dart';
+import '../Setting Screen/Change PassWord.dart';
+import '../Setting Screen/Edit profile.dart';
+import '../Setting Screen/Help.dart';
+import '../Setting Screen/Notification.dart';
+import '../Setting Screen/Privacy.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -51,12 +56,18 @@ class _SettingsState extends State<Settings> {
             _buildListTile(
               icon: Icons.edit,
               title: 'Edit Profile',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => EditProfilePage()));
+              },
             ),
             _buildListTile(
               icon: Icons.lock,
               title: 'Change Password',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => ChangePasswordPage()));
+              },
             ),
             Divider(
               color: const Color(0xFFD4AF37).withOpacity(0.3),
@@ -66,17 +77,26 @@ class _SettingsState extends State<Settings> {
             _buildListTile(
               icon: Icons.notifications,
               title: 'Notification',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => NotificationsPage()));
+              },
             ),
             _buildListTile(
               icon: Icons.security,
               title: 'Privacy',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => PrivacyPolicyPage()));
+              },
             ),
             _buildListTile(
               icon: Icons.help,
               title: 'Help',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => HelpCenterPage()));
+              },
             ),
             Divider(
               color: const Color(0xFFD4AF37).withOpacity(0.3),
@@ -87,11 +107,7 @@ class _SettingsState extends State<Settings> {
               icon: Icons.exit_to_app,
               title: 'Logout',
               onTap: () {
-                Navigator.pop(context);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const LoginOrRegisterPage()));
+                AuthHelper.logout(context);
               },
             ),
           ],

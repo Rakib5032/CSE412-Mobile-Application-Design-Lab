@@ -1,10 +1,10 @@
 import 'dart:async'; // Add this import for Timer
 
 import 'package:flutter/material.dart';
+import 'package:project/Auth/log_out.dart';
 import 'package:project/screens/routes.dart';
 
 import '../Components/eventcard.dart';
-import 'login_or_register.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -220,10 +220,7 @@ class _HomescreenState extends State<Homescreen> {
                     fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const LoginOrRegisterPage()));
+                AuthHelper.logout(context);
               },
             ),
           ],
@@ -260,7 +257,7 @@ class _HomescreenState extends State<Homescreen> {
                     "Your Next Big Memory, Starts Here",
                     style: TextStyle(
                       fontFamily: 'Playfair Display', // Unified elegant serif
-                      fontSize: 22,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.italic,
                       color: Color(0xFFD4AF37),

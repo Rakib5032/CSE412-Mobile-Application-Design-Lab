@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Privacy Policy',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const PrivacyPolicyPage(),
-    );
-  }
-}
-
 class PrivacyPolicyPage extends StatelessWidget {
   const PrivacyPolicyPage({super.key});
 
@@ -198,16 +179,18 @@ class PrivacyPolicyPage extends StatelessWidget {
         const SizedBox(height: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: points.map((point) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            child: Text(
-              point,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 15,
-              ),
-            ),
-          )).toList(),
+          children: points
+              .map((point) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Text(
+                      point,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ))
+              .toList(),
         ),
       ],
     );
